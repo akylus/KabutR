@@ -8,8 +8,10 @@ KabutR is a automated mailing system and reminder built wuth NodeJs and Telegram
  
 ## Working Screenshots
 ### Conversation with Telegram Bot
-![Car](assets/Telegram.jpg)
+<img src="assets/Telegram.JPEG" alt="drawing" width="300"/>
+
 ### Mail Received to the mentioned contacts!
+<img src="assets/Gmail.png" alt="drawing" />
 
 ## Usage
 
