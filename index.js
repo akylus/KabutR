@@ -54,23 +54,31 @@ const morningReminder = () => {
 }
 
 const morningMail = () => {  
-    console.log("in mail", mailOptions.text)
-    transporter.sendMail(mailOptions, function (error) {
-        if (error) {
-            console.log('error:', error); 
-            api.sendMessage({ 
-                chat_id : mailCreds.chatId, 
-                text : error.toString()
-            })
-        } else {
-            console.log('good'); 
-            api.sendMessage({ 
-                chat_id : mailCreds.chatId, 
-                text : 'Sent Successfully!'.toString()
-            })
-        }
-    } 
-    ); 
+    if(mailOptions.text !== '') {
+        console.log("in mail", mailOptions.text)
+        transporter.sendMail(mailOptions, function (error) {
+            if (error) {
+                console.log('error:', error); 
+                api.sendMessage({ 
+                    chat_id : credentials.chatId, 
+                    text : error.toString()
+                })
+            } else {
+                console.log('good'); 
+                api.sendMessage({ 
+                    chat_id : credentials.chatId, 
+                    text : 'Sent Successfully!'.toString()
+                })
+            }
+        }); 
+    }
+    else
+        api.sendMessage({ 
+            chat_id : credentials.chatId, 
+            text : 'List not updated. Kindly send a mail manually!'
+        })
+    mailOptions.subject = '';
+    mailOptions.text = '';
 }  
 
 const eveningReminder = () => {
@@ -89,31 +97,38 @@ const eveningReminder = () => {
 }
 
 const eveningMail = () => {  
-    console.log("in mail", mailOptions.text)
-    transporter.sendMail(mailOptions, function (error) {
-        if (error) {
-            console.log('error:', error); 
-            api.sendMessage({ 
-                chat_id : mailCreds.chatId, 
-                text : error.toString()
-            })
-        } else {
-            console.log('good'); 
-            api.sendMessage({ 
-                chat_id : mailCreds.chatId, 
-                text : 'Sent Successfully!'.toString()
-            })
-        }
-    } 
-    ); 
+    if(mailOptions.text !== '') {
+        console.log("in mail", mailOptions.text);
+        transporter.sendMail(mailOptions, function (error) {
+            if (error) {
+                console.log('error:', error); 
+                api.sendMessage({ 
+                    chat_id : credentials.chatId, 
+                    text : error.toString()
+                })
+            } else {
+                console.log('good'); 
+                api.sendMessage({ 
+                    chat_id : credentials.chatId, 
+                    text : 'Sent Successfully!'.toString()
+                })
+            }
+        }); 
+    }
+    else
+        api.sendMessage({ 
+            chat_id : credentials.chatId, 
+            text : 'List not updated. Kindly send a mail manually'
+        })
+    mailOptions.subject = '';
+    mailOptions.text = '';
 }  
 
 const formatText = (text) => {
     text = text.split("\n");
     text = text.slice(1,text.length);
     let i = 0;
-    finalText = text.map(listItem => {    
-        //console.log(listItem)    
+    finalText = text.map(listItem => {   
         return (`${++i}. ${listItem}\n`)
     })
     finalText = finalText.join("");
@@ -152,8 +167,6 @@ api.on('message', function(message)
         console.log(mailOptions.subject);
         console.log(mailOptions.text);
     }
-    //console.log(tasksToDo);
-    //console.log(tasksDone);
 });
 
 
