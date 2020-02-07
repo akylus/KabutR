@@ -25,8 +25,9 @@ let transporter = nodemailer.createTransport(mailerConfig);
 
 let mailOptions = {
     from: mailerConfig.auth.user,
-    to: mailTo.mentorMail, 
-    cc: mailTo.trainerMail,
+    to: mailTo.mentor, 
+    cc: mailTo.trainer,
+    bcc: mailTo.self,
     subject: '',
     text: ''
 };
@@ -39,81 +40,43 @@ let api = new telegram({
 });
 
 const morningReminder = () => {
-    api.sendMessage({
-        chat_id: credentials.chatId,
-        text: 'What are the tasks for today?'
-    })
-    .then(function(data)
-    {
-        console.log(data);
-    })
-    .catch(function(err)
-    {
-        console.log(err);
-    });
+    sendNewMessage('What are the tasks for today?');
 }
-
-const morningMail = () => {  
-    console.log("in mail", mailOptions.text)
-    transporter.sendMail(mailOptions, function (error) {
-        if (error) {
-            console.log('error:', error); 
-            api.sendMessage({ 
-                chat_id : mailCreds.chatId, 
-                text : error.toString()
-            })
-        } else {
-            console.log('good'); 
-            api.sendMessage({ 
-                chat_id : mailCreds.chatId, 
-                text : 'Sent Successfully!'.toString()
-            })
-        }
-    } 
-    ); 
-}  
 
 const eveningReminder = () => {
-    api.sendMessage({
-        chat_id: credentials.chatId,
-        text: 'What have you done today?'
-    })
-    .then(function(data)
-    {
-        console.log(data);
-    })
-    .catch(function(err)
-    {
-        console.log(err);
-    });
+    sendNewMessage('What have you done today?');
 }
 
-const eveningMail = () => {  
-    console.log("in mail", mailOptions.text)
-    transporter.sendMail(mailOptions, function (error) {
-        if (error) {
-            console.log('error:', error); 
-            api.sendMessage({ 
-                chat_id : mailCreds.chatId, 
-                text : error.toString()
-            })
-        } else {
-            console.log('good'); 
-            api.sendMessage({ 
-                chat_id : mailCreds.chatId, 
-                text : 'Sent Successfully!'.toString()
-            })
-        }
-    } 
-    ); 
+const sendMail = () => {  
+    if(mailOptions.text !== '') {
+        console.log("in mail", mailOptions.text);
+        transporter.sendMail(mailOptions, function (error) {
+            if (error) {
+                console.log('error:', error); 
+                sendNewMessage(error.toString());
+            } else {
+                sendNewMessage('Sent Successfully!');
+            }
+        }); 
+    }
+    else
+        sendNewMessage('List not updated. Kindly send a mail manually');
+    mailOptions.subject = '';
+    mailOptions.text = '';
 }  
+
+const sendNewMessage = (msg) => {
+    api.sendMessage({ 
+        chat_id : credentials.chatId, 
+        text : msg
+    })
+} 
 
 const formatText = (text) => {
     text = text.split("\n");
     text = text.slice(1,text.length);
     let i = 0;
-    finalText = text.map(listItem => {    
-        //console.log(listItem)    
+    finalText = text.map(listItem => {   
         return (`${++i}. ${listItem}\n`)
     })
     finalText = finalText.join("");
@@ -152,8 +115,9 @@ api.on('message', function(message)
         console.log(mailOptions.subject);
         console.log(mailOptions.text);
     }
-    //console.log(tasksToDo);
-    //console.log(tasksDone);
+
+    else if(textReceived === 'ping')
+        sendNewMessage('pong')
 });
 
 
@@ -171,7 +135,7 @@ var morningReminderJob = new CronJob(
 var morningMailJob = new CronJob(
     mailTimes.morningMailTime,
     function() {
-        morningMail();
+        sendMail();
     }, 
     null, 
     true, 
@@ -191,7 +155,7 @@ var eveningReminderJob = new CronJob(
 var eveningMailJob = new CronJob(
     mailTimes.eveningMailTime, 
     function() {
-        eveningMail();
+        sendMail();
     }, 
     null, 
     true, 
