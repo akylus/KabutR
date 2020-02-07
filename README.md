@@ -5,6 +5,11 @@ KabutR is a automated mailing system and reminder built wuth NodeJs and Telegram
   - Reminder as a text message on Telegram
   - Reply with work to do/done
   - Magic!
+ 
+## Working Screenshots
+### Conversation with Telegram Bot
+![Car](assets/Telegram.jpg)
+### Mail Received to the mentioned contacts!
 
 ## Usage
 
