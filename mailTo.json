@@ -1,4 +1,5 @@
 {
-    "mentorMail" : "siva.s@technovert.com", 
-    "trainerMail" : "suhas.b@technovert.com ; sandeep.d@technovert.com ; aman.t@technovert.com"
+    "mentor" : "siva.s@technovert.com", 
+    "trainer" : "suhas.b@technovert.com ; sandeep.d@technovert.com ; aman.t@technovert.com",
+    "self" : "kaustubh.eppalapalli@gmail.com"
 }
