@@ -116,8 +116,10 @@ api.on('message', function(message)
         console.log(mailOptions.text);
     }
 
-    else if(textReceived === 'ping')
-        sendNewMessage('pong')
+    else if(textReceived.includes('ing') && textReceived.length === 4) {        
+        sendNewMessage(`${firstLetter}ong`)
+
+    }
 });
 
 
