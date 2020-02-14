@@ -42,6 +42,10 @@ let api = new telegram({
     }
 });
 
+if(process.env.NODE_ENV === 'production') {
+    api.setWebHook('https://young-inlet-35605.herokuapp.com/' + botToken);
+}
+
 const morningReminder = () => {
     sendNewMessage('What are the tasks for today?');
 }
