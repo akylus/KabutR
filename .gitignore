@@ -1,6 +1,2 @@
 # dependencies
 /node_modules
-
-#info
-/token.json
-/credentials.json
