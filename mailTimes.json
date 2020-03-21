@@ -1,6 +1,6 @@
 {
     "morningReminderTime": "00 00 09 * * 1-6",
     "morningMailTime": "00 30 09 * * 1-6",
-    "eveningReminderTime": "00 21 21 * * 1-6",
-    "eveningMailTime": "00 21 21 * * 1-6"
+    "eveningReminderTime": "00 00 20 * * 1-6",
+    "eveningMailTime": "00 30 20 * * 1-6"
 }
