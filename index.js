@@ -112,7 +112,7 @@ api.on("message", function(message) {
 
     if (firstLetter === "@") {
         finalText =
-            "Here's what I am planning on getting done today: \n\n" +
+            "Hello,\nHere's what I am planning on getting done today: \n\n" +
             formattedText +
             "\nThank you,\nRegards,\nKaustubh.";
         mailOptions.subject = "Work to do | " + date;
@@ -121,7 +121,7 @@ api.on("message", function(message) {
         console.log(mailOptions.text);
     } else if (firstLetter === "*") {
         finalText =
-            "Here's what I have done today: \n" +
+            "Hello,\nHere's what I have done today: \n\n" +
             formattedText +
             "\nThank you,\nRegards,\nKaustubh.";
         mailOptions.subject = "Daily Work Report | " + date;
