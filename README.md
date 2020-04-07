@@ -19,14 +19,14 @@ KabutR is an automated mailing system and reminder built with NodeJs and Telegra
   - Add your token.json and credentials.json files as:
   ```json
 {
-    "token": "TOKEN HERE"
+    "token": "<TOKEN HERE>"
 }
 ```
 
 ```json
 {
-    "email": "MAIL ID HERE",
-    "password": "MAIL'S PASSWORD",
+    "email": "<MAIL ID HERE>",
+    "password": "<PASSWORD>",
     "chatId": "<Your CHAT ID with the bot>"    
 }
 ```
